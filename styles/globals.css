@@ -14,7 +14,26 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ul {
-	@apply list-disc pl-6 py-2;
+	@apply list-disc pl-8 py-2;
+}
+
+ol {
+	@apply list-decimal pl-8 py-2;
+}
+
+blockquote {
+	@apply pl-3 py-2 border-l-4 border-slate-300
+}
+
+table { @apply border border-slate-300; }
+table tr {}
+th { @apply px-3 py-1 text-sm; }
+td { @apply px-3 py-1; }
+table thead tr { @apply odd:bg-slate-100; }
+table tbody tr { @apply even:bg-slate-100; }
+
+pre {
+	@apply bg-slate-100 px-2 py-2;
 }
 
 .bg-table-cloth {
