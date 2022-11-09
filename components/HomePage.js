@@ -1,21 +1,30 @@
 import React from 'react';
 
 import Head from 'next/head';
+
+import DOMPurify from 'dompurify';
 import {marked} from 'marked';
 
 import styles from '../styles/Home.module.css';
 
 
 
+marked.setOptions({
+	headerIds: false
+});
+
 export default function HomePage ({}) {
 	const contentElement = React.useRef();
 	const editorElement = React.useRef();
 
 	const [content, setContent] = React.useState('');
+
 	const handleChange = (e) => {
 		const inputText = e.target.value.trim();
-		const htmlResult = marked.parse(inputText);
-		setContent(htmlResult);
+		const unsafeHtml = marked.parse(inputText);
+		const safeHtml = DOMPurify.sanitize(unsafeHtml);
+		console.log(safeHtml);
+		setContent(safeHtml);
 	};
 
 	return (
@@ -47,7 +56,7 @@ export default function HomePage ({}) {
 							<h4 className="font-bold text-center bg-slate-100 px-2 py-4">Edit</h4>
 						</div>
 						<div className="grow bg-white">
-							<textarea ref={editorElement} onChange={handleChange} className="w-full h-full px-3 py-2 bg-transparent resize-none outline-0"></textarea>
+							<textarea ref={editorElement} onChange={handleChange} className="bg-editor w-full h-full px-3 leading-[32px] bg-transparent resize-none outline-0"></textarea>
 						</div>
 					</div>
 				</section>
